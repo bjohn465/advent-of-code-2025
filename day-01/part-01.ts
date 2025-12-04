@@ -1,14 +1,14 @@
 import { readFile } from 'node:fs/promises'
 import * as v from 'valibot'
 
-class UnexpectedValueError extends Error {
+export class UnexpectedValueError extends Error {
 	constructor(value: never) {
 		super(`Received unexpected value ${String(value)}`)
 	}
 	static name: 'UnexpectedValueError'
 }
 
-const RotationDirection = Object.freeze({
+export const RotationDirection = Object.freeze({
 	left: 'L',
 	right: 'R',
 })
@@ -34,10 +34,10 @@ const InputToRotationsSchema = v.pipe(
 		}),
 	),
 )
-type Rotations = v.InferOutput<typeof InputToRotationsSchema>
-type Rotation = Rotations[number]
+export type Rotations = v.InferOutput<typeof InputToRotationsSchema>
+export type Rotation = Rotations[number]
 
-async function getRotations() {
+export async function getRotations() {
 	const filePath = new URL('./input.txt', import.meta.url)
 	const contents = await readFile(filePath, { encoding: 'utf8' })
 	return v.parse(InputToRotationsSchema, contents)
@@ -69,8 +69,9 @@ function rotate(fromPosition: number, rotation: Rotation) {
 	}
 }
 
+export const initialDialPosition = 50
+
 function getPositions(rotations: Rotations) {
-	const initialPosition = 50
 	return rotations.reduce(
 		(positions, rotation) => {
 			const startingPosition = positions.at(-1)
@@ -79,7 +80,7 @@ function getPositions(rotations: Rotations) {
 			}
 			return [...positions, rotate(startingPosition, rotation)]
 		},
-		[initialPosition],
+		[initialDialPosition],
 	)
 }
 
