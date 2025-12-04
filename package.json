@@ -17,6 +17,9 @@
   "eslintIgnore": [
     "/node_modules"
   ],
+  "dependencies": {
+    "valibot": "^1.2.0"
+  },
   "devDependencies": {
     "@epic-web/config": "^1.21.3",
     "@types/node": "^24.10.1",
